@@ -1,0 +1,28 @@
+.console{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: black;
+	color: white;
+	font-size: 40px;
+
+}
+.Secondary{
+	color: red;
+}
+.cursor{
+	-webkit-animation: -webkit-cursor 1s both ease infinite;
+	animation: cursor 1s both ease infinite;
+}
+@-webkit-keyframes cursor {
+	0% { opacity:1;}
+	50%{opacity:0;}
+	100%{opacity:1;}
+	
+}
+@keyframes cursor {
+	0% { opacity:1;}
+	50%{opacity:0;}
+	100%{opacity:1;}
+	
+}
