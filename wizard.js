@@ -8,13 +8,14 @@ $(document).ready(function(){
 function writeconsole(x,currentelement){
 	if(currentelement==x.length)
 		return;
-	console.log(currentelement)
-	console.log(x)
+	
 	var tagname = $(x[currentelement])[0].nodeName
 	var classname = $(x[currentelement])[0].className
 	var idname=$(x[currentelement])[0].id
+	console.log('currentelemnt = '+currentelement + 'tagname = '+tagname  )
 	if(tagname=='BR'){
-		writeelement(x,'</br>',currenttag,currentelement,true);
+		console.log('currentbrbefore = '+currentelement)
+		writeelement(x,'</br>',currentelement,true);
 	}
 	else{
 		if(tagname =='#text'){
@@ -49,22 +50,27 @@ function settag(tagname,classname,idname){
 }
 function writeelement(elements,text,currentelement,init){
 	console.log('text = '+text)
-	if(init==true){
+	console.log(init)
+	if(init){
 		if(text=='</br>'){
 			$('.cursor').before('</br>');
+			console.log('currentbrafter = '+currentelement)
 			writeconsole(elements,currentelement+1);
 		}
 		init=false;	
 	}
-	if(text.length==0)
-		writeconsole(elements,currentelement+1);
-	else{
+	if(text!='</br>'){
+		if(text.length==0)
+			writeconsole(elements,currentelement+1);
+		else{
 
-		var x = text.charAt(0);
-		$('.cursor').before(x);
-		text=text.substring(1);
-		setTimeout(function(){writeelement(elements,text,currentelement,false);},1000)
+			var x = text.charAt(0);
+			$('.cursor').before(x);
+			text=text.substring(1);
+			setTimeout(function(){writeelement(elements,text,currentelement,false);},1000)
+		}
 	}
+	
 }
 function writechar(x,Sec,Center){
 	
