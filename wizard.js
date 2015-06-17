@@ -1,67 +1,72 @@
 $(document).ready(function(){
-	writeconsole('=Hey!= My name ee<<is /Hossam/,+ and this is a console writer.',false,false);
-});
-function writeconsole(x,Sec,Center){
-	if(x.length==0)
-		return;
-	var t = 150;
-	var y=x.charAt(0);
-	switch(y) {
-    case '<':
-        t=700;
-		setTimeout(function(){backspace()},200);
-        break;
-    case '+':
-        t=500;
-		setTimeout(function(){enter();},200);
-        break;
-    case '/':
-    		if(!Sec)
-    		 	SetSec();
-    		 Sec=!Sec
-    		break;
-    case '=':
-    		if(!Center)
-    			SetCenter();
-    		Center=!Center;
-    		break;
-    default:
-         writechar(y,Sec,Center);
-	}
+	var text = $('.text').html()
+	$('.text').text('');
+	//$('.text').append('<'+'i'+'>');
+	writeconsole($.parseHTML(text),0);
+	//console.log($($.parseHTML($('.text').html())[1])[0].nodeName)
 
-	x=x.substring(1);
-	setTimeout(function(){
-		writeconsole(x,Sec,Center);
-	},t)
+});
+function writeconsole(x,currentelement){
+	if(currentelement==x.length)
+		return;
+	console.log(currentelement)
+	console.log(x)
+	var tagname = $(x[currentelement])[0].nodeName
+	if(tagname=='BR'){
+		writeelement(x,'</br>',currenttag,currentelement,true);
+	}
+	else{
+		if(tagname =='#text'){
+			 settag('.text')
+		}
+		else{
+			settag(tagname.toLowerCase())
+		}
+		writeelement(x,$(x[currentelement])[0].textContent,currentelement,true);
+	}
+	
+}
+function settag(tagname){
+	var $c = $('.cursor');
+	$c.remove();
+	console.log('cursor = '+$c )
+	console.log('tagname = '+'<'+tagname+'>' )
+	if(tagname=='.text'){
+		$('.text').append($c);
+	}
+	else{
+		$('.text').append('<'+tagname+'>');
+		$(tagname+':last').append($c);
+	}
+	return tagname+':last';
+}
+function writeelement(elements,text,currentelement,init){
+	console.log('text = '+text)
+	if(init==true){
+		if(text=='</br>'){
+			$('.cursor').before('</br>');
+			writeconsole(elements,currentelement+1);
+		}
+		init=false;	
+	}
+	if(text.length==0)
+		writeconsole(elements,currentelement+1);
+	else{
+
+		var x = text.charAt(0);
+		$('.cursor').before(x);
+		text=text.substring(1);
+		setTimeout(function(){writeelement(elements,text,currentelement,false);},1000)
+	}
 }
 function writechar(x,Sec,Center){
-	if(Center)
-		$('center:last').append(x);
-	else{
-		if(Sec)
-			$('.Secondary:last').append(x);
-		else 
-			$('.text').append(x);
-	}
+	
+	
 }
 function enter(){
-	$('.text').append('<br>');
+	
 }
 function backspace(Sec,Center){
-	if(Center){
-		var x=$('center:last').html();
-		$('center:last').html(x.substring(0,x.length-1))
-	}
-	else{
-		if(Sec){
-			var x=$('.Secondary:last').html();
-			$('.Secondary:last').html(x.substring(0,x.length-1))
-		}
-		else{ 
-			var x=$('.text').html();
-			$('.text').html(x.substring(0,x.length-1))
-		}
-	}
 	
 }
 function SetSec(){
