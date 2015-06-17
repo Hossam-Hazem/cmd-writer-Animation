@@ -1,9 +1,8 @@
 $(document).ready(function(){
 	var text = $('.text').html()
 	$('.text').text('');
-	//$('.text').append('<'+'i'+'>');
 	writeconsole($.parseHTML(text),0);
-	//console.log($($.parseHTML($('.text').html())[1])[0].nodeName)
+	//console.log($($.parseHTML($('.text').html())[1])[0].id)
 
 });
 function writeconsole(x,currentelement){
@@ -12,30 +11,38 @@ function writeconsole(x,currentelement){
 	console.log(currentelement)
 	console.log(x)
 	var tagname = $(x[currentelement])[0].nodeName
+	var classname = $(x[currentelement])[0].className
+	var idname=$(x[currentelement])[0].id
 	if(tagname=='BR'){
 		writeelement(x,'</br>',currenttag,currentelement,true);
 	}
 	else{
 		if(tagname =='#text'){
-			 settag('.text')
+			 settag('.text','','')
 		}
 		else{
-			settag(tagname.toLowerCase())
+			settag(tagname.toLowerCase(),classname,idname)
 		}
 		writeelement(x,$(x[currentelement])[0].textContent,currentelement,true);
 	}
 	
 }
-function settag(tagname){
+function settag(tagname,classname,idname){
 	var $c = $('.cursor');
 	$c.remove();
 	console.log('cursor = '+$c )
 	console.log('tagname = '+'<'+tagname+'>' )
+	var tag=tagname;
 	if(tagname=='.text'){
 		$('.text').append($c);
 	}
 	else{
-		$('.text').append('<'+tagname+'>');
+		if(classname!='')
+			tag=tag+' class ="'+classname+'"';
+		if(idname!='')
+			tag=tag+' id="'+idname+'"';
+		tag='<'+tag+'>'
+		$('.text').append(tag);
 		$(tagname+':last').append($c);
 	}
 	return tagname+':last';

@@ -10,6 +10,7 @@
 .Secondary{
 	color: red;
 }
+
 .cursor{
 	-webkit-animation: -webkit-cursor 1s both ease infinite;
 	animation: cursor 1s both ease infinite;
