@@ -35,7 +35,7 @@ function settag(tagname,classname,idname){
 	console.log('tagname = '+'<'+tagname+'>' )
 	var tag=tagname;
 	if(tagname=='.text'){
-		$('.text').append($c);
+		tag="<span class = 'itext'>"
 	}
 	else{
 		if(classname!='')
@@ -43,9 +43,10 @@ function settag(tagname,classname,idname){
 		if(idname!='')
 			tag=tag+' id="'+idname+'"';
 		tag='<'+tag+'>'
+	}
 		$('.text').append(tag);
 		$(tagname+':last').append($c);
-	}
+	
 	return tagname+':last';
 }
 function writeelement(elements,text,currentelement,init){
@@ -63,13 +64,23 @@ function writeelement(elements,text,currentelement,init){
 		if(text.length==0)
 			writeconsole(elements,currentelement+1);
 		else{
-
 			var x = text.charAt(0);
-			$('.cursor').before(x);
-			text=text.substring(1);
+				if(x=='<'){
+					var $c = $('.cursor');
+					var parent=$c.parent()
+					var temp=parent.text();
+					temp=temp.substring(0,temp.length-2);
+					parent.text(temp);
+					parent.append($c);
+				}
+				else{
+					$('.cursor').before(x);
+				}
+				text=text.substring(1);
 			setTimeout(function(){writeelement(elements,text,currentelement,false);},1000)
+			}
 		}
-	}
+	
 	
 }
 function writechar(x,Sec,Center){
