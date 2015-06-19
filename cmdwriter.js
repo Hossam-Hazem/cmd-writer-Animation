@@ -1,6 +1,7 @@
 $(document).ready(function(){
-	var text = $('.text').html()
-	$('.text').text('');
+	var text = $('.consolewriter').html()
+	$('.consolewriter').text('');
+	$('.consolewriter').append("<span class ='cursor'>|</span>")
 	writeconsole($.parseHTML(text),0);
 
 
@@ -19,7 +20,7 @@ function writeconsole(x,currentelement){
 	}
 	else{
 		if(tagname =='#text'){
-			 settag('.text','','')
+			 settag('.itext','','')
 		}
 		else{
 			settag(tagname.toLowerCase(),classname,idname)
@@ -34,7 +35,7 @@ function settag(tagname,classname,idname){
 
 
 	var tag=tagname;
-	if(tagname=='.text'){
+	if(tagname=='.itext'){
 		tagname ='.itext';
 		tag="<span class = 'itext'>";
 	}
@@ -45,7 +46,7 @@ function settag(tagname,classname,idname){
 			tag=tag+' id="'+idname+'"';
 		tag='<'+tag+'>'
 	}
-		$('.text').append(tag);
+		$('.consolewriter').append(tag);
 		$(tagname+':last').append($c);
 	
 	return tagname+':last';
@@ -77,7 +78,7 @@ function writeelement(elements,text,currentelement,init){
 					$('.cursor').before(x);
 				}
 				text=text.substring(1);
-			setTimeout(function(){writeelement(elements,text,currentelement,false);},270)
+			setTimeout(function(){writeelement(elements,text,currentelement,false);},1000)
 			}
 		}
 	
