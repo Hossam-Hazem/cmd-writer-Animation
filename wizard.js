@@ -35,7 +35,8 @@ function settag(tagname,classname,idname){
 	console.log('tagname = '+'<'+tagname+'>' )
 	var tag=tagname;
 	if(tagname=='.text'){
-		tag="<span class = 'itext'>"
+		tagname ='.itext';
+		tag="<span class = 'itext'>";
 	}
 	else{
 		if(classname!='')
@@ -65,7 +66,7 @@ function writeelement(elements,text,currentelement,init){
 			writeconsole(elements,currentelement+1);
 		else{
 			var x = text.charAt(0);
-				if(x=='<'){
+				if(x=='/'){
 					var $c = $('.cursor');
 					var parent=$c.parent()
 					var temp=parent.text();
@@ -77,25 +78,9 @@ function writeelement(elements,text,currentelement,init){
 					$('.cursor').before(x);
 				}
 				text=text.substring(1);
-			setTimeout(function(){writeelement(elements,text,currentelement,false);},1000)
+			setTimeout(function(){writeelement(elements,text,currentelement,false);},270)
 			}
 		}
 	
 	
-}
-function writechar(x,Sec,Center){
-	
-	
-}
-function enter(){
-	
-}
-function backspace(Sec,Center){
-	
-}
-function SetSec(){
-		$('.text').append("<span class='Secondary'>");
-}
-function SetCenter(){
-		$('.text').append("<center>");
 }
