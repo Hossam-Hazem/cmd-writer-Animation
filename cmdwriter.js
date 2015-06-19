@@ -2,7 +2,7 @@ $(document).ready(function(){
 	var text = $('.text').html()
 	$('.text').text('');
 	writeconsole($.parseHTML(text),0);
-	//console.log($($.parseHTML($('.text').html())[1])[0].id)
+
 
 });
 function writeconsole(x,currentelement){
@@ -12,9 +12,9 @@ function writeconsole(x,currentelement){
 	var tagname = $(x[currentelement])[0].nodeName
 	var classname = $(x[currentelement])[0].className
 	var idname=$(x[currentelement])[0].id
-	console.log('currentelemnt = '+currentelement + 'tagname = '+tagname  )
+
 	if(tagname=='BR'){
-		console.log('currentbrbefore = '+currentelement)
+
 		writeelement(x,'</br>',currentelement,true);
 	}
 	else{
@@ -31,8 +31,8 @@ function writeconsole(x,currentelement){
 function settag(tagname,classname,idname){
 	var $c = $('.cursor');
 	$c.remove();
-	console.log('cursor = '+$c )
-	console.log('tagname = '+'<'+tagname+'>' )
+
+
 	var tag=tagname;
 	if(tagname=='.text'){
 		tagname ='.itext';
@@ -51,12 +51,11 @@ function settag(tagname,classname,idname){
 	return tagname+':last';
 }
 function writeelement(elements,text,currentelement,init){
-	console.log('text = '+text)
-	console.log(init)
+
 	if(init){
 		if(text=='</br>'){
 			$('.cursor').before('</br>');
-			console.log('currentbrafter = '+currentelement)
+
 			writeconsole(elements,currentelement+1);
 		}
 		init=false;	
