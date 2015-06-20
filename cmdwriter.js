@@ -78,7 +78,7 @@ function writeelement(elements,text,currentelement,init){
 					$('.cursor').before(x);
 				}
 				text=text.substring(1);
-			setTimeout(function(){writeelement(elements,text,currentelement,false);},1000)
+			setTimeout(function(){writeelement(elements,text,currentelement,false);},340)
 			}
 		}
 	
